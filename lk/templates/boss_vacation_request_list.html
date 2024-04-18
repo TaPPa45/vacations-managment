@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container d-flex flex-column justify-content-center align-items-center" style="height: inherit;">
+    <h1 class="mb-2 text-left">Привет, {{ user.first_name}} {{ user.last_name }}</h1>
+    <p class="fs-5 text-center">Ваша должность <b>{{ user.user_type }}</b></p>
+    <p class="fs-5 text-center">Запросы на отпуск</b></p>
+    {% if vacations %}
+        {%for vacation in vacations %}
+            <a href="{% url 'vacation_approval' pk=vacation.pk %}" class="text-dark no-underline"><b>{{vacation}}</b> <span >{{vacation.status}}</span></a>
+        {% endfor %}
+    {% endif %}
+    <a href="{% url 'vacation_request' %}"><button type="button" class="btn btn-primary mb-2">Новый отпуск</button></a>
+    <a href="{% url 'lk' %}"><button type="button" class="btn btn-success mb-5">Личный кабинет</button></a>
+</div>
+{% endblock content %}

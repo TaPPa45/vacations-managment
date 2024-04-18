@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container d-flex " style="height: inherit;">
+    <form class="col-8 col-sm-5 col-md-4" method="POST"> 
+        {% csrf_token %}        
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary">Добавить работника</button>   
+    </form>
+
+</div>    
+{% endblock content %}

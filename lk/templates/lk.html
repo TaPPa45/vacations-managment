@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container d-flex flex-column " style="height: inherit;">
+    <h1 class="mb-2 text-center">Привет, {{ user.first_name}} {{ user.last_name }}</h1>
+    <p class="fs-5 text-center">Ваша должность <b>{{ user.user_type }}</b></p>
+    {% if employers %} 
+        <p class="fs-5 text-center">Список ваших сотрудников</p>
+        <td>
+        {%for employee in employers %}
+            <tr class="fs-5 text-left"><b>{{ employee.first_name }} {{ employee.last_name }}</b></tr>
+        {% endfor %}
+        </td>
+    {% endif %}
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="height: inherit;">
+        <a href="{% url 'vacation_request' %}"><button type="button" class="btn btn-primary mb-2">Новый отпуск</button></a>
+        <a href="{% url 'vacation_list' %}"><button type="button" class="btn btn-success mb-2">мои отпуска</button></a>
+        {%if user.user_type == 'Начальник'%}
+        <a href="{% url 'vacation_request_list'%}"><button type="button" class="btn btn-success mb-2">Запросы</button></a>
+        <a href="{% url 'import_from_excel' %}"><button type="button" class="btn btn-success mb-2">Импорт из excel</button></a>
+        <a href="{% url 'add_employer' %}"><button type="button" class="btn btn-success mb-2">Добавить сотрудника</button></a>
+        {%endif%}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center flex-column" style="height: inherit;">
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="height: inherit;">
+        <h1 class="mb-2 text-center">Привет, {{ user.first_name}} {{ user.last_name }}</h1>
+        <p class="fs-5 text-center">Оставшиеся дни отпуска<b> {{ user.available_days }}</b></p>
+        <p class="fs-5 text-center">Назначен отпуск на 14 дней? <b>{{ user.is_14|yesno:"Да,Нет" }}</b></p>
+        <p class="fs-5 text-center">выбрано дней: <b id="days">0</b></p>
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}success{% endif %} alert-dismissible fade show" role="alert">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<strong>Error!</strong>{% endif %} {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+        <form class="col-10 col-sm-6 col-md-5"{% if unavalaible %}{% else %} method="POST"{% endif %}>
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_start_date" class="form-label mb-1">Начало отпуска:</label>
+                <input type="date" name="start_date" class="form-control" required id="id_start_date">
+            </div>
+            <div class="mb-3">
+                <label for="id_finish_date" class="form-label mb-1">Конец отпуска:</label>
+                <input type="date" name="finish_date" class="form-control" required id="id_finish_date">
+            </div>
+           <button type="submit" class="btn btn-primary">Подтвердить</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
