@@ -34,9 +34,8 @@ def import_from_excel(request):
                 if days >=14:
                     user.is_14 = True
                 user.available_days -= days
-                user.save() 
-
-        return render(request, 'import_success.html')
+                user.save()
+                return render(request, 'import_success.html')
 
     return render(request, 'import_form.html')
 
